@@ -5,6 +5,7 @@ import intership.test.domain.user.dto.UserMapper;
 import intership.test.domain.user.entity.User;
 import intership.test.domain.user.exception.InformationMissing;
 import intership.test.domain.user.service.UserService;
+import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class UserController {
 
     private final UserService userService;
 
+    //C
     @PostMapping("/")
     public ResponseEntity<String> createUser(@Validated UserCreate userCreate, BindingResult bindingResult){
 
@@ -39,6 +41,13 @@ public class UserController {
 
         userService.createUser(userCreate);
         return ResponseEntity.ok("유저 생성을 완료하였습니다.");
+    }
+
+    //R
+    @GetMapping("/{id}")
+    public ResponseEntity<UserCreate> getOneUser(@RequestParam Long id){
+        UserCreate user = userService.getOneUser(id);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @DeleteMapping("/{id}")
