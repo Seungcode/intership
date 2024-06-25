@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -48,6 +49,12 @@ public class UserController {
     public ResponseEntity<UserCreate> getOneUser(@RequestParam Long id){
         UserCreate user = userService.getOneUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<UserCreate>> getAllUser(){
+        List<UserCreate> allUser = userService.getAllUser();
+        return ResponseEntity.status(HttpStatus.OK).body(allUser);
     }
 
     @DeleteMapping("/{id}")

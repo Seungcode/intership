@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,18 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
 
         return UserMapper.toUserCreate(user);
+    }
+
+    @Transactional
+    public List<UserCreate> getAllUser(){
+        List<UserCreate> result = new ArrayList<>();
+
+        for (User user : userRepository.findAll()) {
+            log.info("user id: {}", user.getId());
+            result.add(UserMapper.toUserCreate(user));
+        }
+
+        return result;
     }
 
     //U
