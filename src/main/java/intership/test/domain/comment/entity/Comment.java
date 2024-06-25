@@ -1,35 +1,31 @@
-package intership.domain;
+package intership.test.domain.comment.entity;
 
+import intership.test.domain.user.entity.User;
+import intership.test.domain.board.entity.Board;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
-public class Board {
+public class Comment {
     @Id
     @GeneratedValue
-    @Column(name = "board_id")
+    @Column(name = "comment_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Date createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_at")
     @UpdateTimestamp
     private Date modifiedAt;
@@ -38,10 +34,7 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    @OrderBy("id asc")
-    private List<Comment> comments;
-
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Like> likes;
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 }
