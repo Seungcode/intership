@@ -13,8 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -23,7 +22,7 @@ public class User {
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
@@ -41,4 +40,16 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
+
+    @Builder
+    public User(Long id, String name, Integer age, Date createdAt, Date modifiedAt, List<Likes> likes, List<Board> boards, List<Comment> comments) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.likes = likes;
+        this.boards = boards;
+        this.comments = comments;
+    }
 }
