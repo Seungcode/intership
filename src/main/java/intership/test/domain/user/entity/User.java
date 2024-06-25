@@ -9,7 +9,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static java.sql.Timestamp.*;
 
 @Entity
 @Getter
@@ -26,11 +31,11 @@ public class User {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private Date createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "modified_at")
     @UpdateTimestamp
-    private Date modifiedAt;
+    private Timestamp modifiedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Likes> likes;
@@ -42,7 +47,7 @@ public class User {
     private List<Comment> comments;
 
     @Builder
-    public User(Long id, String name, Integer age, Date createdAt, Date modifiedAt, List<Likes> likes, List<Board> boards, List<Comment> comments) {
+    public User(Long id, String name, Integer age, Timestamp createdAt, Timestamp modifiedAt, List<Likes> likes, List<Board> boards, List<Comment> comments) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -51,5 +56,14 @@ public class User {
         this.likes = likes;
         this.boards = boards;
         this.comments = comments;
+    }
+
+    public void updateUser(String name, Integer age){
+        if (name != null) {
+            this.name = name;
+        }
+        if (age != null) {
+            this.age = age;
+        }
     }
 }
