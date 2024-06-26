@@ -7,8 +7,8 @@ import lombok.*;
 
 @Entity
 @Getter
-@Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Likes {
     @Id
     @GeneratedValue
