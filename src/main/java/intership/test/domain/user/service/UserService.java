@@ -1,5 +1,6 @@
 package intership.test.domain.user.service;
 
+import intership.test.domain.board.service.BoardLikeService;
 import intership.test.domain.user.dto.UserCreate;
 import intership.test.domain.user.dto.UserMapper;
 import intership.test.domain.user.dto.UserUpdate;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BoardLikeService boardLikeService;
 
     //C
     @Transactional
@@ -75,6 +77,8 @@ public class UserService {
     @Transactional
     public void deleteUser(Long id){
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+
+        boardLikeService.deleteBoardLike(id);
 
         log.info("삭제된 유저 : {}", user.getId());
 

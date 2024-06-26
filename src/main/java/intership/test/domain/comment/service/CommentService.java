@@ -11,10 +11,8 @@ import intership.test.domain.user.entity.User;
 import intership.test.domain.user.exception.UserNotFound;
 import intership.test.domain.user.repository.UserRepository;
 import intership.test.exception.ErrorCode;
-import jakarta.persistence.Temporal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

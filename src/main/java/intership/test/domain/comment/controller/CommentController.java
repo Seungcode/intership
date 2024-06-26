@@ -1,8 +1,6 @@
 package intership.test.domain.comment.controller;
 
-import intership.test.domain.board.dto.BoardCreate;
 import intership.test.domain.comment.dto.CommentCreate;
-import intership.test.domain.comment.dto.CommentMapping;
 import intership.test.domain.comment.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

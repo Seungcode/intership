@@ -1,14 +1,15 @@
 package intership.test.domain.board.entity;
 
 import intership.test.domain.comment.entity.Comment;
-import intership.test.domain.like.entity.Likes;
 import intership.test.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -28,9 +29,12 @@ public class Board {
 
     @Column(nullable = false)
     private String title;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Column
+    private Integer like_cnt = 0;
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
@@ -38,7 +42,6 @@ public class Board {
     @Column(name = "modified_at")
     @UpdateTimestamp
     private Timestamp modifiedAt;
-
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     @OrderBy("id asc")
@@ -49,11 +52,12 @@ public class Board {
     List<User> users = new ArrayList<>();
 
     @Builder
-    public Board(Long id, User user, String title, String content, Timestamp createdAt, Timestamp modifiedAt, List<Comment> comments, List<User> users) {
+    public Board(Long id, User user, String title, String content, int like_cnt, Timestamp createdAt, Timestamp modifiedAt, List<Comment> comments, List<User> users) {
         this.id = id;
         this.user = user;
         this.title = title;
         this.content = content;
+        this.like_cnt = like_cnt;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.comments = comments;
@@ -62,6 +66,12 @@ public class Board {
 
     public void updateBoardLike(User user){
         this.users.add(user);
+        this.like_cnt += 1;
+    }
+
+    public void updateBoardAfterDeleteUser(List<User> users){
+        this.users = users;
+        this.like_cnt = users.size();
     }
 
     public void updateBoard(User user, String title, String content){
