@@ -25,4 +25,15 @@ public class BoardMapper {
                 .create_at(board.getCreatedAt())
                 .build();
     }
+
+    public static BoardGetOne toBoardGetOne(Board board){
+        return BoardGetOne
+                .builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .userName(board.getUser().getName())
+                .content(board.getContent())
+                .create_at(board.getCreatedAt())
+                .build();
+    }
 }
