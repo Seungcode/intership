@@ -1,7 +1,5 @@
 package intership.test.domain.comment.dto;
 
-import intership.test.domain.board.entity.Board;
-import intership.test.domain.user.entity.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;

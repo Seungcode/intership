@@ -45,7 +45,7 @@ public class BoardMapper {
                 .title(board.getTitle())
                 .userName(board.getUser().getName())
                 .content(board.getContent())
-                .like_num(board.getUsers().size())
+                .like_num(board.getLike_cnt())
                 .comment(commentGets)
                 .create_at(board.getCreatedAt())
                 .build();

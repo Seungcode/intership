@@ -1,14 +1,15 @@
 package intership.test.domain.comment.entity;
 
-import intership.test.domain.user.entity.User;
 import intership.test.domain.board.entity.Board;
+import intership.test.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -16,7 +17,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
 
