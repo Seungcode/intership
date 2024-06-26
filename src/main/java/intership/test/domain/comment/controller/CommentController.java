@@ -1,6 +1,7 @@
 package intership.test.domain.comment.controller;
 
 import intership.test.domain.comment.dto.CommentCreate;
+import intership.test.domain.comment.dto.CommentGet;
 import intership.test.domain.comment.dto.CommentUpdate;
 import intership.test.domain.comment.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,7 +43,11 @@ public class CommentController {
     }
 
     //R
-
+    @GetMapping("/{comment_idx}")
+    @Operation(summary = "댓글 읽어오기 API", description = "단일 댓글을 읽어오는 API입니다.")
+    public ResponseEntity<CommentGet> getOneComment(@PathVariable Long comment_idx){
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getOneComment(comment_idx));
+    }
 
     //U
     @PatchMapping("/{comment_idx}")
