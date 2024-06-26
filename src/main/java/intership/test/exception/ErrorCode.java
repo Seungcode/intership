@@ -17,7 +17,10 @@ public enum ErrorCode {
 
 
     //Board
-    BOARD_NOT_FOUND(BAD_REQUEST, "존재하지 않는 게시물입니다, idx를 다시 한 번 확인해주세요");
+    BOARD_NOT_FOUND(BAD_REQUEST, "존재하지 않는 게시물입니다, idx를 다시 한 번 확인해주세요"),
+
+    //Comment
+    COMMENT_NOT_FOUND(BAD_REQUEST, "존재하지 않는 댓글입니다, idx를 다시 한 번 확인해주세요");
     private final HttpStatus httpStatus;
     private final String message;
 
