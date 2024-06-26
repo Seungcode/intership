@@ -27,6 +27,18 @@ public class UserService {
     private final UserRepository userRepository;
     private final BoardLikeService boardLikeService;
 
+    @Transactional
+    public void createInitialUser() {
+        if (!userRepository.existsById(0L)) {
+            User user = User.builder()
+                    .id(0L)
+                    .name("알 수 없음")
+                    .age(0)
+                    .build();
+            userRepository.save(user);
+        }
+    }
+
     //C
     @Transactional
     public void createUser(UserCreate userCreate){
