@@ -1,6 +1,7 @@
 package intership.test.domain.board.controller;
 
 import intership.test.domain.board.dto.BoardCreate;
+import intership.test.domain.board.dto.BoardGetAll;
 import intership.test.domain.board.service.BoardService;
 import intership.test.domain.user.dto.UserCreate;
 import intership.test.domain.user.service.UserService;
@@ -12,9 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/board")
@@ -42,4 +46,12 @@ public class BoardController {
         boardService.createBoard(boardCreate);
         return ResponseEntity.ok("게시물 생성을 완료하였습니다.");
     }
+
+    //R
+    @GetMapping("")
+    @Operation(summary = "전체 게시물 받아오기 API", description = "전체 게시물을 받아오는 API입니다. (idx/제목/작성자/생성일자)")
+    public ResponseEntity<List<BoardGetAll>> getAllBoard(){
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.getAllBoard());
+    }
+
 }
