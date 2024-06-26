@@ -13,4 +13,13 @@ public class CommentMapping {
                 .board(board)
                 .build();
     }
+
+    public static CommentGet toCommentGet(Comment comment, User user){
+        return CommentGet
+                .builder()
+                .content(comment.getContent())
+                .userName(user.getName())
+                .create_at(comment.getCreatedAt())
+                .build();
+    }
 }

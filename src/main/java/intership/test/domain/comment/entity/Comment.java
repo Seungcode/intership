@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -23,11 +25,11 @@ public class Comment {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private Date createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "modified_at")
     @UpdateTimestamp
-    private Date modifiedAt;
+    private Timestamp modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -39,7 +41,7 @@ public class Comment {
 
     @Builder
 
-    public Comment(Long id, String content, Date createdAt, Date modifiedAt, User user, Board board) {
+    public Comment(Long id, String content, Timestamp createdAt, Timestamp modifiedAt, User user, Board board) {
         this.id = id;
         this.content = content;
         this.createdAt = createdAt;

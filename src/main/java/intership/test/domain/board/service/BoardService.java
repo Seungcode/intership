@@ -4,6 +4,9 @@ import intership.test.domain.board.dto.*;
 import intership.test.domain.board.entity.Board;
 import intership.test.domain.board.exception.BoardNotFound;
 import intership.test.domain.board.repository.BoardRepository;
+import intership.test.domain.comment.dto.CommentGet;
+import intership.test.domain.comment.dto.CommentMapping;
+import intership.test.domain.comment.entity.Comment;
 import intership.test.domain.user.entity.User;
 import intership.test.domain.user.exception.UserNotFound;
 import intership.test.domain.user.repository.UserRepository;
@@ -46,8 +49,13 @@ public class BoardService {
 
     @Transactional
     public BoardGetOne getOneBoard(Long idx){
+        List<CommentGet> commentGets = new ArrayList<>();
         Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
-        return BoardMapper.toBoardGetOne(board);
+        for (Comment comment : board.getComments()) {
+            User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+            commentGets.add(CommentMapping.toCommentGet(comment, user));
+        }
+        return BoardMapper.toBoardGetOne(board, commentGets);
     }
 
     //U

@@ -4,18 +4,15 @@ import intership.test.domain.board.entity.Board;
 import intership.test.domain.comment.entity.Comment;
 import intership.test.domain.like.entity.Likes;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.sql.Timestamp.*;
 
 @Entity
 @Getter
