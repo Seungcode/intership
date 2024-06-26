@@ -55,11 +55,6 @@ public class User {
         this.comments = comments;
     }
 
-
-
-
-
-
     public void updateUser(String name, Integer age){
         if (name != null) {
             this.name = name;

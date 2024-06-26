@@ -1,6 +1,7 @@
 package intership.test.domain.comment.controller;
 
 import intership.test.domain.comment.dto.CommentCreate;
+import intership.test.domain.comment.dto.CommentUpdate;
 import intership.test.domain.comment.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/comment")
@@ -41,4 +40,19 @@ public class CommentController {
         commentService.createComment(commentCreate);
         return ResponseEntity.ok("댓글 생성을 완료하였습니다.");
     }
+
+    //R
+
+
+    //U
+    @PatchMapping("/{comment_idx}")
+    @Operation(summary = "댓글 수정 API", description = "댓글을 수정하는 API입니다.")
+    public ResponseEntity<String> updateComment(@PathVariable Long comment_idx,
+                                                @RequestBody CommentUpdate commentUpdate){
+        commentService.updateComment(commentUpdate, comment_idx);
+
+        return ResponseEntity.ok("댓글 수정을 완료하였습니다.");
+    }
+
+    //D
 }

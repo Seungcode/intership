@@ -14,6 +14,14 @@ public class CommentMapping {
                 .build();
     }
 
+    public static Comment toComment(CommentUpdate commentUpdate, User user){
+        return Comment
+                .builder()
+                .content(commentUpdate.getContent())
+                .user(user)
+                .build();
+    }
+
     public static CommentGet toCommentGet(Comment comment, User user){
         return CommentGet
                 .builder()

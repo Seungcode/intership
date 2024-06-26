@@ -1,6 +1,7 @@
 package intership.test.domain.comment.entity;
 
 import intership.test.domain.board.entity.Board;
+import intership.test.domain.comment.dto.CommentUpdate;
 import intership.test.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -41,7 +42,6 @@ public class Comment {
     private Board board;
 
     @Builder
-
     public Comment(Long id, String content, Timestamp createdAt, Timestamp modifiedAt, User user, Board board) {
         this.id = id;
         this.content = content;
@@ -49,5 +49,10 @@ public class Comment {
         this.modifiedAt = modifiedAt;
         this.user = user;
         this.board = board;
+    }
+
+    public void updateComment(User user, String content){
+        if(user != null) this.user = user;
+        if(content != null) this.content = content;
     }
 }
