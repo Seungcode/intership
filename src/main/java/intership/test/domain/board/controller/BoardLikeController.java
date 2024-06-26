@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Tag(name = "Like API", description = "좋아요 관련 API")
 public class BoardLikeController {
-
     private final BoardLikeService boardLikeService;
 
     @PostMapping("/board")
