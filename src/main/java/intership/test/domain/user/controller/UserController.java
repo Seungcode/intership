@@ -31,7 +31,6 @@ public class UserController {
             @Validated UserCreate userCreate,
             BindingResult bindingResult
     ){
-
         if(bindingResult.hasErrors()){
             StringBuilder errorMsg = new StringBuilder();
             bindingResult.getFieldErrors().forEach(error -> {
