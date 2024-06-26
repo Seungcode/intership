@@ -2,8 +2,10 @@ package intership.test.domain.board.service;
 
 import intership.test.domain.board.dto.BoardCreate;
 import intership.test.domain.board.dto.BoardGetAll;
+import intership.test.domain.board.dto.BoardGetOne;
 import intership.test.domain.board.dto.BoardMapper;
 import intership.test.domain.board.entity.Board;
+import intership.test.domain.board.exception.BoardNotFound;
 import intership.test.domain.board.repository.BoardRepository;
 import intership.test.domain.user.entity.User;
 import intership.test.domain.user.exception.UserNotFound;
@@ -44,4 +46,12 @@ public class BoardService {
         }
         return result;
     }
+
+    @Transactional
+    public BoardGetOne getOneBoard(Long idx){
+        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+        return BoardMapper.toBoardGetOne(board);
+    }
+
+
 }

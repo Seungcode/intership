@@ -2,6 +2,7 @@ package intership.test.domain.board.controller;
 
 import intership.test.domain.board.dto.BoardCreate;
 import intership.test.domain.board.dto.BoardGetAll;
+import intership.test.domain.board.dto.BoardGetOne;
 import intership.test.domain.board.service.BoardService;
 import intership.test.domain.user.dto.UserCreate;
 import intership.test.domain.user.service.UserService;
@@ -13,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,6 +50,12 @@ public class BoardController {
     @Operation(summary = "전체 게시물 받아오기 API", description = "전체 게시물을 받아오는 API입니다. (idx/제목/작성자/생성일자)")
     public ResponseEntity<List<BoardGetAll>> getAllBoard(){
         return ResponseEntity.status(HttpStatus.OK).body(boardService.getAllBoard());
+    }
+
+    @GetMapping("/{board_idx}")
+    @Operation(summary = "단일 게시물 받아오기 API", description = "단일 게시물을 받아오는 API입니다.")
+    public ResponseEntity<BoardGetOne> getOneBoard(@PathVariable Long board_idx){
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.getOneBoard(board_idx));
     }
 
 }
