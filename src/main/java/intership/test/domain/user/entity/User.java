@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.sql.Timestamp.*;
@@ -37,6 +38,9 @@ public class User {
     @UpdateTimestamp
     private Timestamp modifiedAt;
 
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
+    List<Board> boards_like = new ArrayList<>();
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Likes> likes;
 
@@ -45,6 +49,18 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
+
+    public User(Long id, String name, Integer age, Timestamp createdAt, Timestamp modifiedAt, List<Board> boards_like, List<Likes> likes, List<Board> boards, List<Comment> comments) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.boards_like = boards_like;
+        this.likes = likes;
+        this.boards = boards;
+        this.comments = comments;
+    }
 
     @Builder
     public User(Long id, String name, Integer age, Timestamp createdAt, Timestamp modifiedAt, List<Likes> likes, List<Board> boards, List<Comment> comments) {
