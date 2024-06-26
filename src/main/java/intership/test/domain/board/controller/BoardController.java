@@ -67,4 +67,12 @@ public class BoardController {
         boardService.updateBoard(boardUpdate, board_idx);
         return ResponseEntity.ok("게시물 업데이트를 완료하였습니다.");
     }
+
+    //D
+    @DeleteMapping("/{board_id}")
+    @Operation(summary = "게시물 삭제 API", description = "게시물을 삭제하는 API입니다.")
+    public ResponseEntity<String> deleteBoard(@PathVariable Long board_id){
+        boardService.deleteBoard(board_id);
+        return ResponseEntity.ok("게시물 삭제를 완료하였습니다.");
+    }
 }
