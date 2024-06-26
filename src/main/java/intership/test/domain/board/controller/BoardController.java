@@ -3,6 +3,8 @@ package intership.test.domain.board.controller;
 import intership.test.domain.board.dto.BoardCreate;
 import intership.test.domain.board.dto.BoardGetAll;
 import intership.test.domain.board.dto.BoardGetOne;
+import intership.test.domain.board.dto.BoardUpdate;
+import intership.test.domain.board.entity.Board;
 import intership.test.domain.board.service.BoardService;
 import intership.test.domain.user.dto.UserCreate;
 import intership.test.domain.user.service.UserService;
@@ -58,4 +60,11 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.OK).body(boardService.getOneBoard(board_idx));
     }
 
+    //U
+    @PatchMapping("/{board_idx}")
+    @Operation(summary = "게시물 수정 API", description = "게시물을 수정하는 API입니다.")
+    public ResponseEntity<String> updateBoard(@PathVariable Long board_idx, @RequestBody BoardUpdate boardUpdate){
+        boardService.updateBoard(boardUpdate, board_idx);
+        return ResponseEntity.ok("게시물 업데이트를 완료하였습니다.");
+    }
 }

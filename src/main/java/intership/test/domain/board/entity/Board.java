@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -62,5 +62,11 @@ public class Board {
 
     public void updateBoardLike(User user){
         this.users.add(user);
+    }
+
+    public void updateBoard(User user, String title, String content){
+        if(user!=null) this.user = user;
+        if(title != null) this.title = title;
+        if(content != null) this.content = content;
     }
 }

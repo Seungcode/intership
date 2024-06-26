@@ -16,6 +16,15 @@ public class BoardMapper {
                 .build();
     }
 
+    public static Board toBoard(BoardUpdate boardUpdate, User user){
+        return Board
+                .builder()
+                .user(user)
+                .title(boardUpdate.getTitle())
+                .content(boardUpdate.getContent())
+                .build();
+    }
+
     public static BoardGetAll toBoardGetAll(Board board){
         return BoardGetAll
                 .builder()
@@ -36,4 +45,5 @@ public class BoardMapper {
                 .create_at(board.getCreatedAt())
                 .build();
     }
+
 }

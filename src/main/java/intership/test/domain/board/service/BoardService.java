@@ -1,9 +1,6 @@
 package intership.test.domain.board.service;
 
-import intership.test.domain.board.dto.BoardCreate;
-import intership.test.domain.board.dto.BoardGetAll;
-import intership.test.domain.board.dto.BoardGetOne;
-import intership.test.domain.board.dto.BoardMapper;
+import intership.test.domain.board.dto.*;
 import intership.test.domain.board.entity.Board;
 import intership.test.domain.board.exception.BoardNotFound;
 import intership.test.domain.board.repository.BoardRepository;
@@ -51,6 +48,16 @@ public class BoardService {
     public BoardGetOne getOneBoard(Long idx){
         Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
         return BoardMapper.toBoardGetOne(board);
+    }
+
+    //U
+    @Transactional
+    public void updateBoard(BoardUpdate boardUpdate, Long idx){
+        User user = userRepository.findById(boardUpdate.getUser_id()).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+
+        board.updateBoard(user, boardUpdate.getTitle(), boardUpdate.getContent());
+        boardRepository.save(board);
     }
 
 
