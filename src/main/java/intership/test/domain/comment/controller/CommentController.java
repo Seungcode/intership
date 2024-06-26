@@ -60,4 +60,12 @@ public class CommentController {
     }
 
     //D
+    @DeleteMapping("/{comment_idx}")
+    @Operation(summary = "댓글 삭제 API", description = "댓글을 삭제하는 API입니다.")
+    public ResponseEntity<String> deleteComment(@PathVariable Long comment_idx){
+        commentService.deleteComment(comment_idx);
+
+        return ResponseEntity.ok("댓글 삭제를 완료하였습니다.");
+    }
+
 }
