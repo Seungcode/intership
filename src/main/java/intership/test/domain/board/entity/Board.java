@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,25 +44,23 @@ public class Board {
     @OrderBy("id asc")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Likes> likes;
+    @ManyToMany
+    @JoinTable(name = "board_like", joinColumns = @JoinColumn(name = "board_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    List<User> users = new ArrayList<>();
 
     @Builder
-    public Board(Long id,
-                 String title,
-                 String content,
-                 Timestamp createdAt,
-                 Timestamp modifiedAt,
-                 User user,
-                 List<Comment> comments,
-                 List<Likes> likes) {
+    public Board(Long id, User user, String title, String content, Timestamp createdAt, Timestamp modifiedAt, List<Comment> comments, List<User> users) {
         this.id = id;
+        this.user = user;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.user = user;
         this.comments = comments;
-        this.likes = likes;
+        this.users = users;
+    }
+
+    public void updateBoardLike(User user){
+        this.users.add(user);
     }
 }
