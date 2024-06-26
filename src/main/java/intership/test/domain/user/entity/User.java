@@ -38,16 +38,18 @@ public class User {
     @UpdateTimestamp
     private Timestamp modifiedAt;
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
+    //ON DELETE SET DEFAULT
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
     List<Board> boards_like = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Likes> likes;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Board> boards;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    //ON DELETE SET DEFAULT
+    @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
     public User(Long id, String name, Integer age, Timestamp createdAt, Timestamp modifiedAt, List<Board> boards_like, List<Likes> likes, List<Board> boards, List<Comment> comments) {
