@@ -76,8 +76,9 @@ public class UserService {
     public void deleteUser(Long id){
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
 
+        log.info("삭제된 유저 : {}", user.getId());
+
         userRepository.deleteById(id);
 
-        log.info("삭제된 유저 : {}", user.getId());
     }
 }

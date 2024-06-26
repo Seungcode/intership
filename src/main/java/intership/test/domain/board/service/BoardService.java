@@ -60,5 +60,15 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    //D
+    @Transactional
+    public void deleteBoard(Long idx){
+        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+
+        log.info("삭제된 게시물 : {}",board.getId());
+
+        boardRepository.deleteById(idx);
+    }
+
 
 }
