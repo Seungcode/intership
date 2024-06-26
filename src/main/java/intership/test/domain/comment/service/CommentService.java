@@ -4,6 +4,7 @@ import intership.test.domain.board.entity.Board;
 import intership.test.domain.board.exception.BoardNotFound;
 import intership.test.domain.board.repository.BoardRepository;
 import intership.test.domain.comment.dto.CommentCreate;
+import intership.test.domain.comment.dto.CommentGet;
 import intership.test.domain.comment.dto.CommentMapping;
 import intership.test.domain.comment.dto.CommentUpdate;
 import intership.test.domain.comment.entity.Comment;
@@ -40,6 +41,13 @@ public class CommentService {
     }
 
     //R
+    @Transactional
+    public CommentGet getOneComment(Long comment_id){
+        Comment comment = commentRepository.findById(comment_id).orElseThrow(() -> new CommentNotFound(ErrorCode.COMMENT_NOT_FOUND));
+        User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+
+        return CommentMapping.toCommentGet(comment, user);
+    }
 
     //U
     @Transactional
