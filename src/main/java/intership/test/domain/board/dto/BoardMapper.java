@@ -15,4 +15,14 @@ public class BoardMapper {
                 .content(boardCreate.getContent())
                 .build();
     }
+
+    public static BoardGetAll toBoardGetAll(Board board){
+        return BoardGetAll
+                .builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .userName(board.getUser().getName())
+                .create_at(board.getCreatedAt())
+                .build();
+    }
 }
