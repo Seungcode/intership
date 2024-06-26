@@ -1,15 +1,14 @@
 package intership.test.domain.like.entity;
 
+import intership.test.domain.comment.entity.Comment;
 import intership.test.domain.user.entity.User;
-import intership.test.domain.board.entity.Board;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-public class Likes {
+public class CommentLike {
     @Id
     @GeneratedValue
     @Column(name = "like_id")
@@ -20,6 +19,13 @@ public class Likes {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+
+    @Builder
+    public CommentLike(Long id, User user, Comment comment) {
+        this.id = id;
+        this.user = user;
+        this.comment = comment;
+    }
 }
