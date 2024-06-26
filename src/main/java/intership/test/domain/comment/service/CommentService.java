@@ -59,5 +59,14 @@ public class CommentService {
 
         commentRepository.save(comment);
     }
+
     //D
+    @Transactional
+    public void deleteComment(Long comment_id){
+        Comment comment = commentRepository.findById(comment_id).orElseThrow(() -> new CommentNotFound(ErrorCode.COMMENT_NOT_FOUND));
+
+        log.info("삭제할 댓글 정보 : id = {}, content = {}", comment.getId(), comment.getContent());
+
+        commentRepository.deleteById(comment_id);
+    }
 }
