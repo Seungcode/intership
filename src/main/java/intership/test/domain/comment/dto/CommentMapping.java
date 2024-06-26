@@ -27,6 +27,7 @@ public class CommentMapping {
                 .builder()
                 .content(comment.getContent())
                 .userName(user.getName())
+                .like_cnt(comment.getCommentLikes().size())
                 .create_at(comment.getCreatedAt())
                 .build();
     }

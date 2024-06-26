@@ -2,6 +2,7 @@ package intership.test.domain.comment.entity;
 
 import intership.test.domain.board.entity.Board;
 import intership.test.domain.comment.dto.CommentUpdate;
+import intership.test.domain.like.entity.CommentLike;
 import intership.test.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,14 +43,18 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @OneToMany(mappedBy = "comment")
+    private List<CommentLike> commentLikes;
+
     @Builder
-    public Comment(Long id, String content, Timestamp createdAt, Timestamp modifiedAt, User user, Board board) {
+    public Comment(Long id, String content, Timestamp createdAt, Timestamp modifiedAt, User user, Board board, List<CommentLike> commentLikes) {
         this.id = id;
         this.content = content;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.user = user;
         this.board = board;
+        this.commentLikes = commentLikes;
     }
 
     public void updateComment(User user, String content){
