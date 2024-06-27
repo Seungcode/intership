@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Setter
 @Getter
 @NoArgsConstructor
 public class BoardUpdate {
@@ -12,6 +13,7 @@ public class BoardUpdate {
     private String content;
     private String title;
 
+    @Builder
     public BoardUpdate(Long user_id, String content, String title) {
         this.user_id = user_id;
         this.content = content;

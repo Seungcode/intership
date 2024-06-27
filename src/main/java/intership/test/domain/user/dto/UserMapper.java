@@ -7,10 +7,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserMapper {
     public static User toUser(UserCreate userCreate){
-        return new User(userCreate);
+        return User
+                .builder()
+                .id(userCreate.getId())
+                .name(userCreate.getName())
+                .age(userCreate.getAge())
+                .build();
     }
 
     public static UserCreate toUserCreate(User user){
-        return new UserCreate(user.getId(), user.getName(), user.getAge());
+        return UserCreate
+                .builder()
+                .id(user.getId())
+                .name(user.getName())
+                .age(user.getAge())
+                .build();
     }
 }
