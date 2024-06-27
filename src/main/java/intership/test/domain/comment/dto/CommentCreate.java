@@ -1,23 +1,19 @@
 package intership.test.domain.comment.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommentCreate {
 
-    @NotNull(message = "내용을 입력하지 않았습니다.")
     private String content;
     private Long user_id;
     private Long board_idx;
 
-    public CommentCreate(String content, Long user_id, Long board_idx) {
-        this.content = content;
-        this.user_id = user_id;
+    public CommentCreate(CommentGetReq commentGetReq, Long board_idx) {
+        this.content = commentGetReq.getContent();
+        this.user_id = commentGetReq.getUser_id();
         this.board_idx = board_idx;
     }
 }
