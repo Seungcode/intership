@@ -2,6 +2,7 @@ package intership.test.domain.user.controller;
 
 import intership.test.domain.user.dto.UserCreate;
 import intership.test.domain.user.dto.UserUpdate;
+import intership.test.domain.user.entity.User;
 import intership.test.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,7 +26,7 @@ public class UserController {
     private final UserService userService;
 
     //C
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "User 생성 API", description = "새로운 유저를 생성하는 API입니다.")
     public ResponseEntity<String> createUser(
             @Validated UserCreate userCreate,
@@ -53,7 +54,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     @Operation(summary = "전체 User 불러오기 API", description = "전체 유저의 정보를 불러오는 API입니다.")
     public ResponseEntity<List<UserCreate>> getAllUser(){
         List<UserCreate> allUser = userService.getAllUser();

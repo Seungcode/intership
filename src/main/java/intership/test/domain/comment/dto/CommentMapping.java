@@ -6,29 +6,14 @@ import intership.test.domain.user.entity.User;
 
 public class CommentMapping {
     public static Comment toComment(CommentCreate commentCreate, User user, Board board){
-        return Comment
-                .builder()
-                .content(commentCreate.getContent())
-                .user(user)
-                .board(board)
-                .build();
+        return new Comment(commentCreate, user, board);
     }
 
     public static Comment toComment(CommentUpdate commentUpdate, User user){
-        return Comment
-                .builder()
-                .content(commentUpdate.getContent())
-                .user(user)
-                .build();
+        return new Comment(commentUpdate);
     }
 
     public static CommentGet toCommentGet(Comment comment, User user){
-        return CommentGet
-                .builder()
-                .content(comment.getContent())
-                .userName(user.getName())
-                .like_cnt(comment.getCommentLikes().size())
-                .create_at(comment.getCreatedAt())
-                .build();
+        return new CommentGet(comment.getContent(), user.getName(), comment.getCommentLikes().size(), comment.getCreatedAt());
     }
 }

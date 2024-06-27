@@ -1,6 +1,6 @@
 package intership.test.domain.like.controller;
 
-import intership.test.domain.like.dto.CommentLikeCreate;
+import intership.test.domain.like.entity.LikeId;
 import intership.test.domain.like.service.CommentLikeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,9 @@ public class CommentLikeController {
 
     @PostMapping("/comment")
     public ResponseEntity<String> createCommentLike(
-            @RequestBody CommentLikeCreate commentLikeCreate
+            @RequestBody LikeId likeId
             ){
-        if(commentLikeService.pressLike(commentLikeCreate))
-            return ResponseEntity.ok("좋아요 처리를 성공적으로 진행했습니다.");
-        return ResponseEntity.ok("좋아요를 성공적으로 취소했습니다.");
+        commentLikeService.pressLike(likeId);
+        return ResponseEntity.ok("좋아요 처리를 성공적으로 진행했습니다.");
     }
 }

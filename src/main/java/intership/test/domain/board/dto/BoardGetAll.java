@@ -8,7 +8,6 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class BoardGetAll {
     private Long id;
@@ -16,7 +15,6 @@ public class BoardGetAll {
     private String userName;
     private Timestamp create_at;
 
-    @Builder
     public BoardGetAll(Long id, String title, String userName, Timestamp create_at) {
         this.id = id;
         this.title = title;
