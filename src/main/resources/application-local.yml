@@ -6,6 +6,6 @@ spring:
     password: ${LOCAL_MYSQL_PASSWORD}
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true

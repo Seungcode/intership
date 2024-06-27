@@ -8,7 +8,6 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class CommentGet {
     private String content;
@@ -16,7 +15,6 @@ public class CommentGet {
     private Integer like_cnt;
     private Timestamp create_at;
 
-    @Builder
     public CommentGet(String content, String userName, Integer like_cnt, Timestamp create_at) {
         this.content = content;
         this.userName = userName;

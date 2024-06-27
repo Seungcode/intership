@@ -11,44 +11,19 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardMapper {
     public static Board toBoard(BoardCreate boardCreate, User user){
-        return Board
-                .builder()
-                .user(user)
-                .title(boardCreate.getTitle())
-                .content(boardCreate.getContent())
-                .build();
+        return new Board(boardCreate, user);
     }
 
     public static Board toBoard(BoardUpdate boardUpdate, User user){
-        return Board
-                .builder()
-                .user(user)
-                .title(boardUpdate.getTitle())
-                .content(boardUpdate.getContent())
-                .build();
+        return new Board(boardUpdate, user);
     }
 
     public static BoardGetAll toBoardGetAll(Board board){
-        return BoardGetAll
-                .builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .userName(board.getUser().getName())
-                .create_at(board.getCreatedAt())
-                .build();
+        return new BoardGetAll(board.getId(), board.getTitle(), board.getUser().getName(), board.getCreatedAt());
     }
 
     public static BoardGetOne toBoardGetOne(Board board, List<CommentGet> commentGets){
-        return BoardGetOne
-                .builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .userName(board.getUser().getName())
-                .content(board.getContent())
-                .like_num(board.getLike_cnt())
-                .comment(commentGets)
-                .create_at(board.getCreatedAt())
-                .build();
+        return new BoardGetOne(board.getId(), board.getTitle(), board.getUser().getName(), board.getContent(), board.getCreatedAt(), board.getUsers().size(), commentGets);
     }
 
 }

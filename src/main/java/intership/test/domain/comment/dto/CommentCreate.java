@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class CommentCreate {
 
@@ -15,8 +14,6 @@ public class CommentCreate {
     private String content;
     private Long user_id;
     private Long board_idx;
-
-    @Builder
 
     public CommentCreate(String content, Long user_id, Long board_idx) {
         this.content = content;

@@ -1,18 +1,19 @@
 package intership.test.domain.comment.entity;
 
 import intership.test.domain.board.entity.Board;
+import intership.test.domain.comment.dto.CommentCreate;
 import intership.test.domain.comment.dto.CommentUpdate;
 import intership.test.domain.like.entity.CommentLike;
 import intership.test.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,23 +44,26 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToMany(mappedBy = "comment")
-    private List<CommentLike> commentLikes;
+    @OneToMany(mappedBy = "like_id.comment")
+    private List<CommentLike> commentLikes = new ArrayList<>();
 
-    @Builder
-    public Comment(Long id, String content, Timestamp createdAt, Timestamp modifiedAt, User user, Board board, List<CommentLike> commentLikes) {
-        this.id = id;
-        this.content = content;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
+    public Comment(CommentCreate commentCreate, User user, Board board) {
+        this.content = commentCreate.getContent();
         this.user = user;
         this.board = board;
-        this.commentLikes = commentLikes;
     }
 
-    public void updateComment(User user, String content){
-        if(user != null) this.user = user;
-        if(content != null) this.content = content;
+    public Comment(CommentUpdate commentUpdate) {
+        this.content = commentUpdate.getContent();
+    }
+
+    public void updateComment(User user, CommentUpdate commentUpdate){
+        this.user = user;
+        this.content = commentUpdate.getContent();
+    }
+
+    public void updateCommentLike(List<CommentLike> commentLikes){
+        this.commentLikes = commentLikes;
     }
 
     public void writerDelete(User user){
