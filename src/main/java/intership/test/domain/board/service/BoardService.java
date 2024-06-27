@@ -10,7 +10,8 @@ import intership.test.domain.comment.entity.Comment;
 import intership.test.domain.user.entity.User;
 import intership.test.domain.user.exception.UserNotFound;
 import intership.test.domain.user.repository.UserRepository;
-import intership.test.exception.ErrorCode;
+import intership.test.exception.BoardErrorCode;
+import intership.test.exception.UserErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class BoardService {
     //C
     @Transactional
     public void createBoard(BoardCreate boardCreate){
-        User user = userRepository.findById(boardCreate.getUser_id()).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findById(boardCreate.getUser_id()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
         Board board = BoardMapper.toBoard(boardCreate, user);
         boardRepository.save(board);
 
@@ -50,9 +51,9 @@ public class BoardService {
     @Transactional
     public BoardGetOne getOneBoard(Long idx){
         List<CommentGet> commentGets = new ArrayList<>();
-        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(BoardErrorCode.BOARD_NOT_FOUND));
         for (Comment comment : board.getComments()) {
-            User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+            User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
             commentGets.add(CommentMapping.toCommentGet(comment, user));
         }
         return BoardMapper.toBoardGetOne(board, commentGets);
@@ -61,8 +62,8 @@ public class BoardService {
     //U
     @Transactional
     public void updateBoard(BoardUpdate boardUpdate, Long idx){
-        User user = userRepository.findById(boardUpdate.getUser_id()).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
-        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+        User user = userRepository.findById(boardUpdate.getUser_id()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
+        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(BoardErrorCode.BOARD_NOT_FOUND));
 
         board.updateBoard(user, boardUpdate.getTitle(), boardUpdate.getContent());
         boardRepository.save(board);
@@ -71,7 +72,7 @@ public class BoardService {
     //D
     @Transactional
     public void deleteBoard(Long idx){
-        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+        Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(BoardErrorCode.BOARD_NOT_FOUND));
 
         log.info("삭제된 게시물 : {}",board.getId());
 

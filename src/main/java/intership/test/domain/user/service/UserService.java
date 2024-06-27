@@ -13,7 +13,7 @@ import intership.test.domain.user.exception.IdChangeNotAllowed;
 import intership.test.domain.user.exception.UserAlreadExist;
 import intership.test.domain.user.exception.UserNotFound;
 import intership.test.domain.user.repository.UserRepository;
-import intership.test.exception.ErrorCode;
+import intership.test.exception.UserErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class UserService {
         Optional<User> exist = userRepository.findById(userCreate.getId());
 
         if(!exist.isEmpty()){
-            throw new UserAlreadExist(ErrorCode.USER_ALREADY_EXIST);
+            throw new UserAlreadExist(UserErrorCode.USER_ALREADY_EXIST);
         }
 
         userRepository.save(UserMapper.toUser(userCreate));
@@ -62,7 +62,7 @@ public class UserService {
     //R
     @Transactional
     public UserCreate getOneUser(Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
         return UserMapper.toUserCreate(user);
     }
@@ -82,8 +82,8 @@ public class UserService {
     //U
     @Transactional
     public void updateUser(Long id, UserUpdate userUpdate){
-        if(id!=userUpdate.getId()) throw new IdChangeNotAllowed(ErrorCode.ID_CHANGE_NOT_ALLOWED);
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        if(id!=userUpdate.getId()) throw new IdChangeNotAllowed(UserErrorCode.ID_CHANGE_NOT_ALLOWED);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
         user.updateUser(userUpdate.getName(), userUpdate.getAge());
         userRepository.save(user);
@@ -94,9 +94,9 @@ public class UserService {
     //D
     @Transactional
     public void deleteUser(Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
-        User default_user = userRepository.findById(0L).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        User default_user = userRepository.findById(0L).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
         for (Board board : user.getBoards()) {
             board.writerDelete(default_user);
