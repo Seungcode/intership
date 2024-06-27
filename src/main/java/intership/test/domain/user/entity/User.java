@@ -37,11 +37,11 @@ public class User {
     @UpdateTimestamp
     private Timestamp modifiedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "user")
     private List<Board> boards;
 
     //ON DELETE SET DEFAULT
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
     @Builder
