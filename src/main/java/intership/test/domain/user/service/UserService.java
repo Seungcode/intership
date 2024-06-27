@@ -1,6 +1,10 @@
 package intership.test.domain.user.service;
 
+import intership.test.domain.board.entity.Board;
+import intership.test.domain.board.repository.BoardRepository;
 import intership.test.domain.board.service.BoardLikeService;
+import intership.test.domain.comment.entity.Comment;
+import intership.test.domain.comment.repository.CommentRepository;
 import intership.test.domain.user.dto.UserCreate;
 import intership.test.domain.user.dto.UserMapper;
 import intership.test.domain.user.dto.UserUpdate;
@@ -26,6 +30,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BoardLikeService boardLikeService;
+    private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public void createInitialUser() {
@@ -89,6 +95,18 @@ public class UserService {
     @Transactional
     public void deleteUser(Long id){
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+
+        User default_user = userRepository.findById(0L).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+
+        for (Board board : user.getBoards()) {
+            board.writerDelete(default_user);
+            boardRepository.save(board);
+        }
+
+        for (Comment comment : user.getComments()) {
+            comment.writerDelete(default_user);
+            commentRepository.save(comment);
+        }
 
         boardLikeService.deleteBoardLike(id);
 

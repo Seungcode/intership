@@ -61,4 +61,8 @@ public class Comment {
         if(user != null) this.user = user;
         if(content != null) this.content = content;
     }
+
+    public void writerDelete(User user){
+        this.user = user;
+    }
 }

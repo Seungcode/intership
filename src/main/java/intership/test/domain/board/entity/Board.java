@@ -79,4 +79,8 @@ public class Board {
         if(title != null) this.title = title;
         if(content != null) this.content = content;
     }
+
+    public void writerDelete(User user){
+        this.user = user;
+    }
 }
