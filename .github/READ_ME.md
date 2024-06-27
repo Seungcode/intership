@@ -1,6 +1,6 @@
 <h1>Relation 설정 여부와 이유</h1>
 
-![IMG_C45AA59A9B3A-1](https://github.com/Seungcode/intership/assets/104374372/685482c8-c5bc-43b5-9199-2a54487dc95b)
+![](../../IMG_C45AA59A9B3A-1.jpeg)
 
 <h3>Relation 1</h3>
 User - Board<br><br>
