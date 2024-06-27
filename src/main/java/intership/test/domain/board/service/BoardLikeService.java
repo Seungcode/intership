@@ -36,13 +36,12 @@ public class BoardLikeService {
     public void deleteBoardLike(Long id){
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
 
-        List<Board> boards = user.getBoards();
+        List<Board> boards = user.getBoard_like();
         for (Board board : boards) {
             List<User> users = board.getUsers();
             users.remove(user);
             board.updateBoardAfterDeleteUser(users);
         }
-
     }
 
 }

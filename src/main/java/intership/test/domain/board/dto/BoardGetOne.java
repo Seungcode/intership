@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class BoardGetOne {
     private Long id;
@@ -19,6 +20,7 @@ public class BoardGetOne {
     private Integer like_num;
     private List<CommentGet> comment;
 
+    @Builder
     public BoardGetOne(Long id, String title, String userName, String content, Timestamp create_at, Integer like_num, List<CommentGet> comment) {
         this.id = id;
         this.title = title;

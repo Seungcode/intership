@@ -1,7 +1,5 @@
 package intership.test.domain.board.entity;
 
-import intership.test.domain.board.dto.BoardCreate;
-import intership.test.domain.board.dto.BoardUpdate;
 import intership.test.domain.comment.entity.Comment;
 import intership.test.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -47,22 +45,23 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     @OrderBy("id asc")
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments;
 
     @ManyToMany
-    @JoinTable(name = "board_like", joinColumns = @JoinColumn(name = "board_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "board_like", joinColumns = @JoinColumn(name = "board_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     List<User> users = new ArrayList<>();
 
-    public Board(BoardCreate boardCreate, User user) {
+    @Builder
+    public Board(Long id, User user, String title, String content, int like_cnt, Timestamp createdAt, Timestamp modifiedAt, List<Comment> comments, List<User> users) {
+        this.id = id;
         this.user = user;
-        this.title = boardCreate.getTitle();
-        this.content = boardCreate.getContent();
-    }
-
-    public Board(BoardUpdate boardUpdate, User user) {
-        this.user = user;
-        this.title = boardUpdate.getTitle();
-        this.content = boardUpdate.getContent();
+        this.title = title;
+        this.content = content;
+        this.like_cnt = like_cnt;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.comments = comments;
+        this.users = users;
     }
 
     public void updateBoardLike(User user){
@@ -75,10 +74,10 @@ public class Board {
         this.like_cnt = users.size();
     }
 
-    public void updateBoard(BoardUpdate boardUpdate, User user){
-        this.user = user;
-        this.title = boardUpdate.getTitle();
-        this.content = boardUpdate.getContent();
+    public void updateBoard(User user, String title, String content){
+        if(user!=null) this.user = user;
+        if(title != null) this.title = title;
+        if(content != null) this.content = content;
     }
 
     public void writerDelete(User user){
