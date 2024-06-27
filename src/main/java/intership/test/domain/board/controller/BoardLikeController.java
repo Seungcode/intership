@@ -1,7 +1,6 @@
 package intership.test.domain.board.controller;
 
 import intership.test.domain.board.service.BoardLikeService;
-import intership.test.domain.board.service.BoardService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/like")
+@RequestMapping(value = "/board")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Like API", description = "좋아요 관련 API")
 public class BoardLikeController {
     private final BoardLikeService boardLikeService;
 
-    @PostMapping("/board")
+    @PostMapping("/{board_idx}/like")
     public ResponseEntity<String> createBoardLike(
             @RequestParam Long id,
             @RequestParam Long board_idx
