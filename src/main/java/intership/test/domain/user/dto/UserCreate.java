@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class UserCreate {
     @NotNull(message = "아이디를 입력하지 않았습니다.")
@@ -19,6 +20,7 @@ public class UserCreate {
     @NotNull(message = "나이를 입력하지 않았습니다.")
     private Integer age;
 
+    @Builder
     public UserCreate(Long id, String name, Integer age) {
         this.id = id;
         this.name = name;
