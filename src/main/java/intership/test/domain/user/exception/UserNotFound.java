@@ -2,12 +2,11 @@ package intership.test.domain.user.exception;
 
 
 import intership.test.exception.CustomException;
-import intership.test.exception.ErrorCode;
-import lombok.extern.slf4j.Slf4j;
+import intership.test.exception.UserErrorCode;
 
 public class UserNotFound extends CustomException {
-    public UserNotFound(ErrorCode errorCode) {
-        super(errorCode);
+    public UserNotFound(UserErrorCode userErrorCode) {
+        super(userErrorCode);
     }
 
 }

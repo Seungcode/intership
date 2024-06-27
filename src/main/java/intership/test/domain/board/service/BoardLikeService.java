@@ -6,7 +6,8 @@ import intership.test.domain.board.repository.BoardRepository;
 import intership.test.domain.user.entity.User;
 import intership.test.domain.user.exception.UserNotFound;
 import intership.test.domain.user.repository.UserRepository;
-import intership.test.exception.ErrorCode;
+import intership.test.exception.BoardErrorCode;
+import intership.test.exception.UserErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class BoardLikeService {
 
     @Transactional
     public void createBoardLike(Long id, Long board_idx){
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
-        Board board = boardRepository.findById(board_idx).orElseThrow(() -> new BoardNotFound(ErrorCode.BOARD_NOT_FOUND));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
+        Board board = boardRepository.findById(board_idx).orElseThrow(() -> new BoardNotFound(BoardErrorCode.BOARD_NOT_FOUND));
 
         board.updateBoardLike(user);
 
@@ -34,7 +35,7 @@ public class BoardLikeService {
 
     @Transactional
     public void deleteBoardLike(Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
         List<Board> boards = user.getBoards();
         for (Board board : boards) {

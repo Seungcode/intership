@@ -1,10 +1,10 @@
 package intership.test.domain.user.exception;
 
 import intership.test.exception.CustomException;
-import intership.test.exception.ErrorCode;
+import intership.test.exception.UserErrorCode;
 
 public class IdChangeNotAllowed extends CustomException {
-    public IdChangeNotAllowed(ErrorCode errorCode) {
-        super(errorCode);
+    public IdChangeNotAllowed(UserErrorCode userErrorCode) {
+        super(userErrorCode);
     }
 }

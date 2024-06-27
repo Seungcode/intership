@@ -1,10 +1,10 @@
 package intership.test.domain.user.exception;
 
 import intership.test.exception.CustomException;
-import intership.test.exception.ErrorCode;
+import intership.test.exception.UserErrorCode;
 
 public class UserAlreadExist extends CustomException {
-    public UserAlreadExist(ErrorCode errorCode) {
-        super(errorCode);
+    public UserAlreadExist(UserErrorCode userErrorCode) {
+        super(userErrorCode);
     }
 }
