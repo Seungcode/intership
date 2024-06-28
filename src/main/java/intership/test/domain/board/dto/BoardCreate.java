@@ -1,8 +1,8 @@
 package intership.test.domain.board.dto;
 
-import intership.test.domain.user.entity.User;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor

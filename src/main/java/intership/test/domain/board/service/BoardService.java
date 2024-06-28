@@ -50,13 +50,8 @@ public class BoardService {
 
     @Transactional
     public BoardGetOne getOneBoard(Long idx){
-        List<CommentGet> commentGets = new ArrayList<>();
         Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(BoardErrorCode.BOARD_NOT_FOUND));
-        for (Comment comment : board.getComments()) {
-            User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
-            commentGets.add(CommentMapping.toCommentGet(comment, user));
-        }
-        return BoardMapper.toBoardGetOne(board, commentGets);
+        return BoardMapper.toBoardGetOne(board);
     }
 
     //U

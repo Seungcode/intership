@@ -37,6 +37,7 @@ public class Board {
 
     @Column
     private Integer like_cnt = 0;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
@@ -44,10 +45,6 @@ public class Board {
     @Column(name = "modified_at")
     @UpdateTimestamp
     private Timestamp modifiedAt;
-
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    @OrderBy("id asc")
-    private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "board_like", joinColumns = @JoinColumn(name = "board_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))

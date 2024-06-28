@@ -21,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -42,12 +45,25 @@ public class CommentService {
 
     //R
     @Transactional
+    public List<CommentGet> getComment(Long board_id){
+        List<CommentGet> result = new ArrayList<>();
+        List<Comment> byBoard_id = commentRepository.findByBoard_Id(board_id);
+
+        for (Comment comment : byBoard_id) {
+            User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
+            result.add(CommentMapping.toCommentGet(comment, user));
+        }
+        return result;
+    }
+
+    @Transactional
     public CommentGet getOneComment(Long comment_id){
         Comment comment = commentRepository.findById(comment_id).orElseThrow(() -> new CommentNotFound(CommentErrorCode.COMMENT_NOT_FOUND));
         User user = userRepository.findById(comment.getUser().getId()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
         return CommentMapping.toCommentGet(comment, user);
     }
+
 
     //U
     @Transactional
