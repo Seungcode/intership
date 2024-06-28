@@ -1,9 +1,8 @@
 package intership.test.domain.board.dto;
 
-import lombok.Builder;
+import intership.test.domain.board.entity.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 
@@ -16,11 +15,10 @@ public class BoardGetAll {
     private String userName;
     private Timestamp create_at;
 
-    @Builder
-    public BoardGetAll(Long id, String title, String userName, Timestamp create_at) {
-        this.id = id;
-        this.title = title;
-        this.userName = userName;
-        this.create_at = create_at;
+    public BoardGetAll(Board board) {
+        this.id = board.getId();
+        this.title = board.getTitle();
+        this.userName = board.getUser().getName();
+        this.create_at = board.getCreatedAt();
     }
 }

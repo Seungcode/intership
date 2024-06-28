@@ -9,11 +9,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/board")
@@ -45,6 +48,12 @@ public class CommentController {
     }
 
     //R
+    @GetMapping("/{board_idx}/comment")
+    @Operation(summary = "댓글 읽어오기 API", description = "게시물의 댓글을 읽어오는 API입니다.")
+    public ResponseEntity<List<CommentGet>> getComment(@PathVariable Long board_idx){
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(board_idx));
+    }
+
     @GetMapping("/comment/{comment_idx}")
     @Operation(summary = "댓글 읽어오기 API", description = "단일 댓글을 읽어오는 API입니다.")
     public ResponseEntity<CommentGet> getOneComment(@PathVariable Long comment_idx){
