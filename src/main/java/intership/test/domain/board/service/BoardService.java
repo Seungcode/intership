@@ -60,7 +60,7 @@ public class BoardService {
         User user = userRepository.findById(boardUpdate.getUser_id()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
         Board board = boardRepository.findById(idx).orElseThrow(() -> new BoardNotFound(BoardErrorCode.BOARD_NOT_FOUND));
 
-        board.updateBoard(boardUpdate, user);
+        board.updateBoard(user, boardUpdate.getTitle(), boardUpdate.getContent());
         boardRepository.save(board);
     }
 

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class BoardGetOne {
     private Long id;
@@ -23,6 +24,7 @@ public class BoardGetOne {
         this.content = board.getContent();
         this.create_at = board.getCreatedAt();
         this.like_num = board.getLike_cnt();
+
     }
 
 

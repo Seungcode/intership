@@ -8,11 +8,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardMapper {
     public static Board toBoard(BoardCreate boardCreate, User user){
-        return new Board(boardCreate, user);
+        return Board
+                .builder()
+                .user(user)
+                .title(boardCreate.getTitle())
+                .content(boardCreate.getContent())
+                .build();
     }
 
     public static Board toBoard(BoardUpdate boardUpdate, User user){
-        return new Board(boardUpdate, user);
+        return Board
+                .builder()
+                .user(user)
+                .title(boardUpdate.getTitle())
+                .content(boardUpdate.getContent())
+                .build();
     }
 
     public static BoardGetAll toBoardGetAll(Board board){

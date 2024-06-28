@@ -18,7 +18,6 @@ User - Comment<br><br>
 사용 목적 : <br>
 Comment에서 작성자를 받아오기 위함<br>
 User 삭제 시 Comment의 작성자를 바꾸기 위함<br><br>
-
 사용 이유 : 한 사용자는 여러 댓글을 작성할 수 있지만 한 댓글은 한 명의 사용자만을 작성자로 가질 수 있기 때문에 OneToMany / ManyToOne을 사용하여 연결
 <h3>Relation 4</h3>
 User-CommentLike<br><br>

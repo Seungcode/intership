@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class BoardGetAll {
     private Long id;

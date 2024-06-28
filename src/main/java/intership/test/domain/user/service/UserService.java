@@ -36,7 +36,11 @@ public class UserService {
     @Transactional
     public void createInitialUser() {
         if (!userRepository.existsById(0L)) {
-            User user = new User(new UserCreate(0L, "알 수 없음", 0));
+            User user = User.builder()
+                    .id(0L)
+                    .name("알 수 없음")
+                    .age(0)
+                    .build();
             userRepository.save(user);
         }
     }
@@ -81,7 +85,7 @@ public class UserService {
         if(id!=userUpdate.getId()) throw new IdChangeNotAllowed(UserErrorCode.ID_CHANGE_NOT_ALLOWED);
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
-        user.updateUser(userUpdate);
+        user.updateUser(userUpdate.getName(), userUpdate.getAge());
         userRepository.save(user);
 
         log.info("수정된 정보 : id={}, name={}, age={}", userUpdate.getId(), userUpdate.getName(), userUpdate.getAge());

@@ -71,7 +71,7 @@ public class CommentService {
         Comment comment = commentRepository.findById(comment_id).orElseThrow(() -> new CommentNotFound(CommentErrorCode.COMMENT_NOT_FOUND));
         User user = userRepository.findById(commentUpdate.getUser_id()).orElseThrow(() -> new UserNotFound(UserErrorCode.USER_NOT_FOUND));
 
-        comment.updateComment(user, commentUpdate);
+        comment.updateComment(user, commentUpdate.getContent());
 
         commentRepository.save(comment);
     }
