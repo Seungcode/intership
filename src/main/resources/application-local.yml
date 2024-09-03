@@ -1,11 +1,20 @@
 spring:
+  config:
+    activate:
+      on-profile: local
+
   datasource:
-    url: jdbc:mysql://localhost:${LOCAL_MYSQL_PORT}/test?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${LOCAL_MYSQL_USER}
-    password: ${LOCAL_MYSQL_PASSWORD}
+    url: jdbc:mariadb://localhost:53306/on-boarding-java
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: wedatalab
+    password: wedatalab
 
   jpa:
-    hibernate:
-      ddl-auto: update
+    database-platform: com.example.java_board._core.config.CustomMariaDBDialect
     show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
