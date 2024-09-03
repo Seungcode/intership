@@ -5,9 +5,12 @@ spring:
   jpa:
     show-sql: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: false
         globally_quoted_identifiers: true
         show_sql: false
+
+  flyway:
+    baseline-on-migrate: true
