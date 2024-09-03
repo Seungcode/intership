@@ -13,11 +13,14 @@ spring:
     database-platform: com.example.java_board._core.config.CustomMariaDBDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
         globally_quoted_identifiers: true
+
+  flyway:
+    baseline-on-migrate: true
 
 server:
   port: ${SERVER_PORT}

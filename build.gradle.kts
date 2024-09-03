@@ -36,6 +36,9 @@ dependencies {
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
+    //flyway
+    implementation ("org.flywaydb:flyway-core")
+
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
