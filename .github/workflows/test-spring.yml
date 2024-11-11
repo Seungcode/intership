@@ -1,0 +1,54 @@
+name: Test (Spring)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+    branches:
+      - develop
+    paths:
+      - 'server/**'
+
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+  actions: read
+
+# env:
+#   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_FOR_ODS }}
+
+jobs:
+  build-test:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        spring-version: [ 3.3.0 ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: 테스트 실행
+        working-directory: ./
+        run: ./gradlew build test
+
+      - name: 실패 알림
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: Gihtub Actions CI / CD
+          fields: repo, author, action, workflow, job, took, pullRequest
+        env:
+          #SLACK_WEBHOOK_URL: ${{ env.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
